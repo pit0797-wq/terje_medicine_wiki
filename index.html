@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>СтанZ — Вики: Медицина (TerjeMedicine)</title>
+<style>
+  :root{--accent:#ff8a3c;--accent2:#ffbe6e}
+  body{font-family:Segoe UI,Arial,sans-serif;background:linear-gradient(180deg,#16181c,#1c1f24 400px);color:#e8e6e3;margin:0;padding:0 20px 40px}
+  header.hero{max-width:1000px;margin:20px auto 0;background:linear-gradient(135deg,#2a2018,#3a2c1a);border:1px solid #4a3a24;border-radius:14px;padding:22px 24px}
+  header.hero h1{margin:0 0 6px;font-size:26px;color:var(--accent2)}
+  header.hero .sub{color:#c9bfae;font-size:14px}
+  .badge{display:inline-block;background:var(--accent);color:#221508;font-weight:700;border-radius:20px;padding:2px 12px;font-size:12px;margin-left:8px;vertical-align:middle}
+  .wrap{max-width:1000px;margin:0 auto}
+  .card{background:#24272c;border:1px solid #33373d;border-radius:12px;padding:16px 18px;margin:16px 0;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+  h2{font-size:18px;margin:0 0 10px;color:var(--accent2)}
+  h3{font-size:15px;margin:14px 0 6px;color:#ffd9a8}
+  .hint{font-size:12px;color:#9aa0a6;margin-top:6px}
+  label{display:block;font-size:13px;color:#9aa0a6;margin:8px 0 3px}
+  input,select,button{font-size:14px;border-radius:8px;border:1px solid #444;background:#2e3238;color:#eee;padding:8px 12px}
+  input:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px rgba(255,138,60,.25)}
+  button{cursor:pointer;transition:all .15s}
+  button:hover{background:#3c4149;transform:translateY(-1px)}
+  .pri{background:var(--accent);border-color:var(--accent);color:#221508;font-weight:700}
+  .pri:hover{background:#ffa05c}
+  .dan{background:#5d2b2b;border-color:#6d3232}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0}
+  th{background:#2c3036;color:var(--accent2);text-align:left}
+  th,td{padding:6px 9px;border-bottom:1px solid #33373d}
+  tr:hover td{background:#2b2f35}
+  .cn{font-family:Consolas,monospace;background:#2e3238;border:1px solid #444;border-radius:5px;padding:1px 6px;cursor:pointer;font-size:12px;color:#8fc3ff}
+  .cn:hover{border-color:var(--accent);color:var(--accent)}
+  .tag{display:inline-block;border-radius:12px;padding:1px 9px;font-size:11px;margin-right:4px}
+  .tTab{background:#2b5d3c}.tAmp{background:#5d3b2b}.tInj{background:#3b4a6b}.tKit{background:#5d532b}.tVac{background:#5d2b4d}.tDis{background:#2b555d}
+  .warn{border-left:4px solid #ffb347;background:#2e2718;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13px}
+  .danger{border-left:4px solid #ff5c5c;background:#2e1818;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13px}
+  .ok{border-left:4px solid #7ddc8f;background:#1a2e1f;padding:10px 14px;border-radius:0 8px 8px 0;margin:10px 0;font-size:13px}
+  .steps{counter-reset:s;list-style:none;padding-left:0;margin:8px 0}
+  .steps li{counter-increment:s;position:relative;padding:6px 0 6px 34px;font-size:14px}
+  .steps li:before{content:counter(s);position:absolute;left:0;top:5px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#221508;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center}
+  nav.toc{position:sticky;top:0;z-index:5;background:rgba(22,24,28,.95);backdrop-filter:blur(4px);border-bottom:1px solid #33373d;padding:10px 0;margin:0 -20px 10px}
+  nav.toc .wrap{display:flex;gap:8px;flex-wrap:wrap}
+  nav.toc a{color:#c9bfae;text-decoration:none;font-size:13px;border:1px solid #3a3f46;border-radius:16px;padding:3px 11px}
+  nav.toc a:hover{color:var(--accent);border-color:var(--accent)}
+  .chk{display:block;margin:6px 0;font-size:14px;cursor:pointer}
+  .searchres{font-size:13px;color:#ffd9a8}
+  .faq q{display:block;margin:10px 0;font-weight:600;color:var(--accent2)}
+  footer{max-width:1000px;margin:30px auto 0;text-align:center;color:#8b9299;font-size:13px;border-top:1px solid #33373d;padding-top:16px}
+  footer b{color:var(--accent2)}
+  #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--accent);color:#221508;font-weight:700;padding:10px 22px;border-radius:24px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:99}
+  details{margin:8px 0} summary{cursor:pointer;font-weight:600;color:var(--accent2)}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>🏥 СтанZ · Вики: Медицина <span class="badge">v2.0</span></h1>
+  <div class="sub">Учебник выжившего по моду TerjeMedicine. Здесь вы узнаете, как не умереть от простуды, чем лечить укус зомби и что делать, если глаза видят то, чего нет. Читайте до того, как понадобилось.</div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#checker">🤒 Что со мной?</a>
+  <a href="#drugs">💊 Как лечиться</a>
+  <a href="#wounds">🩸 Раны и хирургия</a>
+  <a href="#diseases">🦠 Болезни</a>
+  <a href="#mind">🧠 Сон и психика</a>
+  <a href="#zones">☠️ Опасные зоны</a>
+  <a href="#kit">🎒 Аптечка выжившего</a>
+  <a href="#faq">❓ FAQ</a>
+  <a href="#ref">📋 Справочник</a>
+</div></nav>
+
+<div class="wrap">
+
+<div class="card">
+  <h2>С чего начать</h2>
+  <p>На сервере СтанZ установлена продвинутая медицина: болезни идут стадиями, у ран есть последствия, а сон — такой же ресурс, как еда и вода. Три главных правила новичка:</p>
+  <ol class="steps">
+    <li><b>Следите за симптомами.</b> Покашливание, тошнота, головная боль — это не «просто эффекты», это болезнь в развитии. Чем раньше начать лечение, тем проще оно пройдёт.</li>
+    <li><b>Мойте руки перед лечением.</b> Полез с грязными руками в открытую рану — заработаешь сепсис. Дезинфицируй руки и инструменты (алкогольная настойка, спрей).</li>
+    <li><b>Не пейзлю с шприцами.</b> Ампула вводится шприцем. После укола шприц грязный — продезинфицируй спиртом или прокипяти в кастрюле с водой на огне. Лень? Бери инъекторы — одноразовые, но без возни.</li>
+  </ol>
+</div>
+
+<div class="card" id="checker">
+  <h2>🤒 Что со мной? Определи болезнь по симптомам</h2>
+  <p style="font-size:14px">Отметьте, что чувствует персонаж — вики подскажет вероятную причину и что делать.</p>
+  <div id="symptoms"></div>
+  <button class="pri" id="checkBtn">Определить болезнь</button>
+  <div id="checkRes"></div>
+</div>
+
+<div class="card" id="drugs">
+  <h2>💊 Как лечиться: три формы лекарств</h2>
+  <table>
+    <tr><th>Форма</th><th>Что это</th><th>Когда использовать</th><th>Нюанс</th></tr>
+    <tr><td><span class="tag tTab">Таблетки</span></td><td>Упаковка из 10 штук, одинаковые пакеты можно комбинировать</td><td>Начальная стадия болезни, профилактика</td><td>Слабые, зато всегда под рукой</td></tr>
+    <tr><td><span class="tag tAmp">Ампулы</span></td><td>Сильнодействующие препараты</td><td>Средняя и тяжёлая стадия</td><td>Нужен шприц; шприц после укола надо дезинфицировать или кипятить</td></tr>
+    <tr><td><span class="tag tInj">Инъекторы</span></td><td>Готовый одноразовый шприц-апликатор</td><td>Средняя и тяжёлая стадия</td><td>Не требует шприца, но одноразовый</td></tr>
+  </table>
+  <h3>💉 Вакцины — прививка заранее</h3>
+  <p>Вакцина создаёт иммунитет к конкретной болезни на ограниченное время. Работает только <b>до</b> заражения — после того как заболел, поздно. Следите, когда защита кончается, и делайте ревакцинацию.</p>
+  <table>
+    <tr><th>Вакцина</th><th>От чего</th><th>Предмет</th><th>Защита</th><th>Передозировка</th></tr>
+    <tr><td>Ваксикам</td><td>Простуда / грипп</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleVaxicam</span></td><td>4 часа</td><td>0.8</td></tr>
+    <tr><td>Зеривакс</td><td>Зомби-вирус</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleZerivax</span></td><td>2 часа</td><td>1.5</td></tr>
+    <tr><td>Рабивакс</td><td>Бешенство</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleRabivax</span></td><td>4 часа</td><td>1.3</td></tr>
+  </table>
+  <div class="ok">💡 Перед вылазкой в город с толпами зомби или в лес к волкам — прививка дёшево обходится по сравнению с лечением болезни.</div>
+  <h3>🧴 Дезинфекция</h3>
+  <table>
+    <tr><th>Предмет</th><th>Класснейм</th><th>Для чего</th></tr>
+    <tr><td>Алкогольная настойка</td><td><span class="cn" onclick="copyCn(this)">DisinfectantAlcohol</span></td><td>Руки, инструменты, шприцы, раны</td></tr>
+    <tr><td>Дезинфицирующий спрей</td><td><span class="cn" onclick="copyCn(this)">DisinfectantSpray</span></td><td>То же самое, удобнее в поле</td></tr>
+  </table>
+  <div class="warn">⚠️ Грязными руками трогать открытую рану — почти гарантированный сепсис. Сначала спирт, потом лечение.</div>
+</div>
+
+<div class="card" id="wounds">
+  <h2>🩸 Раны, пули и хирургия</h2>
+  <h3>Пулевое ранение</h3>
+  <ol class="steps">
+    <li>Останови кровь: кровоостанавливающий бинт эффективнее обычной повязки или тряпки.</li>
+    <li>Пуля остаётся в теле — рана будет продолжать слегка кровоточить.</li>
+    <li>Извлеки пулю хирургическим набором: IFAK/AFAK — лучший вариант, полевой набор — средний, чаша с инструментами — скудный, но лучше, чем ничего.</li>
+    <li>Обработай швы дезинфектором и следи за раной — недолеченная рана приводит к сепсису.</li>
+  </ol>
+  <h3>Бронежилеты</h3>
+  <p>Бронежилет может остановить пулю, но вероятность пробития зависит от калибра: лёгкий жилет остановит мелкий калибр, но не крупный. Даже если пуля заблокирована — ты получишь <b>гематому</b> (ушиб). Броня спасает жизнь, но не от всего.</p>
+  <h3>Гематомы</h3>
+  <p>От ударов зомби, тупого оружия и «пойманной» бронёй пули. Много гематом — здоровье тает само. Заживают со временем, мази ускоряют процесс:</p>
+  <table>
+    <tr><th>Мазь</th><th>Предмет</th><th>Действие</th></tr>
+    <tr><td>Капсикам</td><td><span class="cn" onclick="copyCn(this)">TerjeSalveCapsicum</span></td><td>300 с</td></tr>
+    <tr><td>Випросал</td><td><span class="cn" onclick="copyCn(this)">TerjeSalveViprosal</span></td><td>400 с</td></tr>
+    <tr><td>Финалгон</td><td><span class="cn" onclick="copyCn(this)">TerjeSalveFinalgon</span></td><td>600 с (самая мощная)</td></tr>
+  </table>
+  <h3>Хирургические швы</h3>
+  <p>Швы накладываются при операции и требуют регулярной обработки дезинфицирующими средствами, иначе — сепсис. Прошился — спирт под руку.</p>
+  <h3>Свертываемость и восстановление крови</h3>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Уровень</th><th>Действие</th><th>Передозировка</th></tr>
+    <tr><td>Викасол</td><td><span class="cn" onclick="copyCn(this)">TerjePillsVikasol</span></td><td>1</td><td>300 с (таблетки)</td><td>0.15</td></tr>
+    <tr><td>Эритромикселин</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorErytromixelin</span></td><td>3</td><td>300 с (инъектор)</td><td>0.32</td></tr>
+  </table>
+  <h3>Контузия (сотрясение)</h3>
+  <p>Причина: удар по голове, взрыв рядом, попадание мелкокалиберной пули в баллистический шлем. Симптомы: головная боль, головокружение, шатающаяся походка, затуманенное зрение. Пройдёт сама со временем, а лекарства снимают симптомы:</p>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Действие</th><th>Передозировка</th></tr>
+    <tr><td>Ноопепт</td><td><span class="cn" onclick="copyCn(this)">TerjePillsNoopept</span></td><td>таблетки</td><td>380 с</td><td>0.35</td></tr>
+    <tr><td>Нейрокс</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleNeirox</span></td><td>ампула</td><td>600 с</td><td>0.6</td></tr>
+    <tr><td>Нейрокс</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorNeirox</span></td><td>инъектор</td><td>500 с</td><td>0.3</td></tr>
+  </table>
+  <table>
+    <tr><th>Хир. предмет</th><th>Класснейм</th><th>Объём</th><th>Внутр. органы</th><th>Пулевое</th><th>Ушибы</th></tr>
+    <tr><td>Чаша с мед. инструментом</td><td><span class="cn" onclick="copyCn(this)">TerjeSurgicalTool_Ceramic</span></td><td>1</td><td>0.05 / 90с</td><td>0.2 / 40с</td><td>0.4 / 30с</td></tr>
+    <tr><td>Полевой набор</td><td><span class="cn" onclick="copyCn(this)">TerjeSurgicalKit</span></td><td>5</td><td>0.2 / 40с</td><td>0.5 / 25с</td><td>0.7 / 20с</td></tr>
+    <tr><td>IFAK</td><td><span class="cn" onclick="copyCn(this)">TerjeFirstAidKitIndividual_Black</span></td><td>10</td><td>0.3 / 40с</td><td>0.6 / 30с</td><td>0.8 / 20с</td></tr>
+    <tr><td>AFAK</td><td><span class="cn" onclick="copyCn(this)">TerjeFirstAidKitAdvance_Black</span></td><td>20</td><td>0.3 / 40с</td><td>0.6 / 30с</td><td>0.8 / 20с</td></tr>
+  </table>
+  <div class="hint">Числа: чем больше — тем выше шанс успешного лечения и быстрее действие. IFAK/AFAK — самые эффективные.</div>
+</div>
+
+<div class="card" id="diseases">
+  <h2>🦠 Болезни: как распознать и чем лечить</h2>
+
+  <details open><summary>Хирургический набор — таблица (открывается выше в разделе ран)</summary></details>
+
+  <h3>🤧 Простуда / грипп / пневмония</h3>
+  <p>От переохлаждения. Сначала простуда, потом спускается в лёгкие, последняя стадия — <b>пневмония</b>: персонаж начинает терять здоровье.</p>
+  <ul>
+    <li>Антибиотик того же уровня, что болезнь, или выше. Может понадобиться несколько доз.</li>
+    <li>Лёгкую простуду можно вылечить, просто поспав в тёплом месте.</li>
+    <li>Профилактика: вакцина <b>Ваксикам</b> (TerjeAmpouleVaxicam), тёплая одежда.</li>
+  </ul>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Уровень</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Амибактам</td><td><span class="cn" onclick="copyCn(this)">TerjePillsAmibaktam</span></td><td>таблетки</td><td>1</td><td>60 с</td><td>0.05</td></tr>
+    <tr><td>Тетрациклин</td><td><span class="cn" onclick="copyCn(this)">TetracyclineAntibiotics</span></td><td>таблетки</td><td>1</td><td>300 с</td><td>0.45</td></tr>
+    <tr><td>Парацетамол</td><td><span class="cn" onclick="copyCn(this)">TerjePillsParacetamol</span></td><td>таблетки</td><td>1</td><td>200 с</td><td>0.45</td></tr>
+    <tr><td>Ибупрофен</td><td><span class="cn" onclick="copyCn(this)">TerjePillsIbuprofen</span></td><td>таблетки</td><td>2</td><td>300 с</td><td>0.35</td></tr>
+    <tr><td>Нурофен</td><td><span class="cn" onclick="copyCn(this)">TerjePillsNurofen</span></td><td>таблетки</td><td>2</td><td>300 с</td><td>0.52</td></tr>
+    <tr><td>Амоксиклав</td><td><span class="cn" onclick="copyCn(this)">TerjePillsAmoxiclav</span></td><td>таблетки</td><td>2</td><td>1200 с</td><td>0.75</td></tr>
+    <tr><td>Пиперациллин</td><td><span class="cn" onclick="copyCn(this)">TerjePillsPiperacylin</span></td><td>таблетки</td><td>2</td><td>1100 с</td><td>0.45</td></tr>
+    <tr><td>Кетарол</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleKetarol</span></td><td>ампула</td><td>2</td><td>1200 с</td><td>0.5</td></tr>
+    <tr><td>Амоксиван</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleAmoxivan</span></td><td>ампула</td><td>2</td><td>900 с</td><td>0.3</td></tr>
+    <tr><td>Топоизомераза</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorTopoizomeraza</span></td><td>инъектор</td><td>3</td><td>900 с</td><td>0.65</td></tr>
+    <tr><td>Имипенем</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleImipenem</span></td><td>ампула</td><td>3</td><td>900 с</td><td>0.7</td></tr>
+    <tr><td>Флемоклав</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleFlemoclav</span></td><td>ампула</td><td>3</td><td>1200 с</td><td>0.8</td></tr>
+    <tr><td>Амоксиклав</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorAmoxiclav</span></td><td>инъектор</td><td>3</td><td>1800 с</td><td>0.6</td></tr>
+  </table>
+
+  <h3>🥩 Пищевое отравление</h3>
+  <p>Причины: испорченная или плохо приготовленная еда, гнилые фрукты, ядовитые грибы, грязная вода, бензин. Симптомы (тошнота, рвота) появляются сразу. Не лечить — обезвоживание и потеря здоровья.</p>
+  <ul><li>Лечение: пей много воды + препараты ниже.</li></ul>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Уровень</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Уголь активированный</td><td><span class="cn" onclick="copyCn(this)">CharcoalTablets</span></td><td>таблетки</td><td>1</td><td>300 с</td><td>0.01</td></tr>
+    <tr><td>Полисорб</td><td><span class="cn" onclick="copyCn(this)">TerjePillsPolisorb</span></td><td>таблетки</td><td>1</td><td>300 с</td><td>0.05</td></tr>
+    <tr><td>Фталазол</td><td><span class="cn" onclick="copyCn(this)">TerjePillsFtalazol</span></td><td>таблетки</td><td>1</td><td>1200 с</td><td>0.25</td></tr>
+    <tr><td>Месалазин</td><td><span class="cn" onclick="copyCn(this)">TerjePillsMesalazin</span></td><td>таблетки</td><td>2</td><td>600 с</td><td>0.35</td></tr>
+    <tr><td>Хелатные таблетки</td><td><span class="cn" onclick="copyCn(this)">ChelatingTablets</span></td><td>таблетки</td><td>2</td><td>600 с</td><td>0.6</td></tr>
+    <tr><td>Метоклопрамид</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleMetoclopramid</span></td><td>ампула</td><td>2</td><td>1200 с</td><td>0.4</td></tr>
+    <tr><td>Хептрал</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleHeptral</span></td><td>ампула</td><td>3</td><td>600 с</td><td>0.6</td></tr>
+    <tr><td>Стомапроксидал</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorStomaproxidal</span></td><td>инъектор</td><td>3</td><td>900 с</td><td>0.68</td></tr>
+  </table>
+
+  <h3>☠️ Химическое отравление</h3>
+  <p>От вдыхания токсичных газов. Сначала покашливание, потом тошнота и рвота, на последних стадиях — критическая потеря здоровья и смерть. Лечение: антидот или специальный медикамент.</p>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Уровень</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Ромбиопентал</td><td><span class="cn" onclick="copyCn(this)">TerjePillsRombiopental</span></td><td>таблетки</td><td>1</td><td>30 с</td><td>0.15</td></tr>
+    <tr><td>Неироцетал</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleNeirocetal</span></td><td>ампула</td><td>2</td><td>500 с</td><td>1.25</td></tr>
+    <tr><td>АнтиХимИнъектор</td><td><span class="cn" onclick="copyCn(this)">AntiChemInjector</span></td><td>инъектор</td><td>3</td><td>180 с</td><td>1.1</td></tr>
+  </table>
+
+  <h3>🧟 Зомби-вирус</h3>
+  <div class="danger">🔥 Самая коварная болезнь мода. Передаётся воздушно-капельным путём и через жидкости: драка с зомби в ближнем бою может заразить с небольшим шансом, раны от зомби повышают шанс. Инкубационный период очень долгий — у тебя есть <b>больше часа реального времени</b>, чтобы найти противоядие. Потом самочувствие рушится стремительно.</div>
+  <ul>
+    <li>Профилактика: маска для лица + баллистическая броня снижают шанс заражения. Вакцина <b>Зеривакс</b> (TerjeAmpouleZerivax) — 2 часа защиты.</li>
+    <li>Лечение: <b>Зивирол</b> — успей ввести до терминальной стадии.</li>
+  </ul>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Зивирол</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleZivirol</span></td><td>ампула</td><td>1000 с</td><td>2.35</td></tr>
+    <tr><td>Зивирол</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorZivirol</span></td><td>инъектор</td><td>1200 с</td><td>2.5</td></tr>
+    <tr><td>Зеривакс (вакцина)</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleZerivax</span></td><td>ампула</td><td>7200 с</td><td>1.5</td></tr>
+  </table>
+
+  <h3>🩹 Сепсис (заражение крови)</h3>
+  <p>Инфекция попадает в открытую рану: от царапины зомби, ножевого или пулевого ранения — с небольшой вероятностью, а от грязных рук при лечении раны — с большой. Если не лечить — здоровье постепенно тает.</p>
+  <ul><li>Лечение: только сильные антибиотики 3-го уровня. Профилактика — дезинфекция рук и швов.</li></ul>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Флемоклав</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleFlemoclav</span></td><td>ампула</td><td>1200 с</td><td>0.8</td></tr>
+    <tr><td>Имипенем</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleImipenem</span></td><td>ампула</td><td>900 с</td><td>0.7</td></tr>
+    <tr><td>Амоксиклав</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorAmoxiclav</span></td><td>инъектор</td><td>300 с</td><td>0.6</td></tr>
+    <tr><td>Топоизомераза</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorTopoizomeraza</span></td><td>инъектор</td><td>600 с</td><td>0.65</td></tr>
+  </table>
+
+  <h3>🐺 Бешенство</h3>
+  <div class="danger">🔥 Без лечения — гарантированная смерть. Передаётся через укусы зараженных животных (волки!). Развивается постепенно: сначала скачки температуры и слабость — легко пропустить. Потом тошнота и рвота, невозможно есть и пить. На третьей стадии — резкая температура и быстрая гибель.</div>
+  <ul><li>Профилактика: вакцина <b>Рабивакс</b> (TerjeAmpouleRabivax), 4 часа защиты — берите перед походом туда, где водятся волки.</li></ul>
+
+  <h3>💊 Боль</h3>
+  <p>Сильная боль мешает действовать. Терпеть можно, но зачем, если есть:</p>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Уровень</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Пропитал</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorPropital</span></td><td>инъектор</td><td>2</td><td>180 с</td><td>0.75</td></tr>
+    <tr><td>Морфин</td><td><span class="cn" onclick="copyCn(this)">Morphine</span></td><td>инъектор</td><td>3</td><td>300 с</td><td>0.75</td></tr>
+    <tr><td>Промидол</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorPromidol</span></td><td>инъектор</td><td>3</td><td>600 с</td><td>0.45</td></tr>
+  </table>
+</div>
+
+<div class="card" id="mind">
+  <h2>🧠 Сон и психика</h2>
+  <h3>😴 Сон</h3>
+  <p>Теперь персонажу нужен сон, как еда и вода. Не спишь — падает здоровье и выносливость. Спи в безопасном месте (база, палатка). Если доспать негде, а идти надо:</p>
+  <table>
+    <tr><th>Средство</th><th>Предмет</th><th>Форма</th><th>Восстановление</th><th>Передоз.</th></tr>
+    <tr><td>Энергетик 6Energy</td><td><span class="cn" onclick="copyCn(this)">TerjeDrink6Energy</span></td><td>бутылка</td><td>8</td><td>0.0</td></tr>
+  </table>
+  <div class="hint">Энергетик — костыль, а не замена сну. Хронический недосып даст о себе знать.</div>
+  <h3>😰 Психика</h3>
+  <p>Психика ломается от сильного стресса: атаки зомби, долгое нахождение в пси-зонах, <b>поедание человеческого мяса</b>. Появляются паника, дезориентация, галлюцинации — жить и взаимодействовать становится трудно.</p>
+  <div class="danger">🔥 На крайней стадии персонаж может сам совершить непоправимое — застрелиться или сделать что-то ещё с фатальными последствиями. Не доводите до этой стадии.</div>
+  <p>Лечение: антидепрессанты стабилизируют психику и смягчают влияние стресса.</p>
+  <table>
+    <tr><th>Препарат</th><th>Предмет</th><th>Форма</th><th>Уровень</th><th>Действие</th><th>Передоз.</th></tr>
+    <tr><td>Адепресс</td><td><span class="cn" onclick="copyCn(this)">TerjePillsAdepress</span></td><td>таблетки</td><td>1</td><td>150 с</td><td>0.2</td></tr>
+    <tr><td>Агтеминол</td><td><span class="cn" onclick="copyCn(this)">TerjePillsAgteminol</span></td><td>таблетки</td><td>1</td><td>120 с</td><td>0.2</td></tr>
+    <tr><td>Венлафаксин</td><td><span class="cn" onclick="copyCn(this)">TerjePillsVenlafaxine</span></td><td>таблетки</td><td>1</td><td>250 с</td><td>0.3</td></tr>
+    <tr><td>Астапароксетин</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleActaparoxetine</span></td><td>ампула</td><td>2</td><td>400 с</td><td>0.4</td></tr>
+    <tr><td>Метралиндол</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleMetralindole</span></td><td>ампула</td><td>2</td><td>300 с</td><td>0.1</td></tr>
+    <tr><td>Амитриптилайн</td><td><span class="cn" onclick="copyCn(this)">TerjeAmpouleAmitriptyline</span></td><td>ампула</td><td>3</td><td>600 с</td><td>0.4</td></tr>
+    <tr><td>Амфиталицин</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorAmfitalicyne</span></td><td>инъектор</td><td>3</td><td>520 с</td><td>0.6</td></tr>
+  </table>
+</div>
+
+<div class="card" id="zones">
+  <h2>☠️ Псионические зоны</h2>
+  <p>Опасные области с психоактивным воздействием. Чем ближе к центру зоны — тем сильнее воздействие на психику. Находиться внутри долго нельзя: психика рушится, а за ней — контроль над персонажем.</p>
+  <div class="warn">⚠️ Без защитного комплекта ходить в пси-зону — самоубийство. Держись от зон подальше, если нет снаряжения и антидепрессантов в запасе.</div>
+</div>
+
+<div class="card" id="kit">
+  <h2>🎒 Аптечка выжившего СтанZ</h2>
+  <p>Базовый набор, который стоит носить всегда:</p>
+  <table>
+    <tr><th>Предмет</th><th>Класснейм</th><th>Зачем</th></tr>
+    <tr><td>IFAK</td><td><span class="cn" onclick="copyCn(this)">TerjeFirstAidKitIndividual_Black</span></td><td>Универсальный: раны, пули, ушибы</td></tr>
+    <tr><td>Кровоостанавливающий бинт</td><td>BandageDressing</td><td>Первая помощь при кровотечении</td></tr>
+    <tr><td>Обезболивающее</td><td><span class="cn" onclick="copyCn(this)">TerjeInjectorPropital</span></td><td>Чтобы боль не мешала отступать</td></tr>
+    <tr><td>Антибиотик 1–2 ур.</td><td><span class="cn" onclick="copyCn(this)">TerjePillsAmoxiclav</span></td><td>Простуда и её осложнения</td></tr>
+    <tr><td>Активированный уголь</td><td><span class="cn" onclick="copyCn(this)">CharcoalTablets</span></td><td>Отравление едой/водой</td></tr>
+    <tr><td>Вода (фляга)</td><td><span class="cn" onclick="copyCn(this)">WaterBottle_Colored</span></td><td>Отравления лечатся водой + снимает передозировку</td></tr>
+    <tr><td>Дезинфекция</td><td><span class="cn" onclick="copyCn(this)">DisinfectantAlcohol</span></td><td>Руки, инструменты, шприцы, раны</td></tr>
+    <tr><td>Энергетик</td><td><span class="cn" onclick="copyCn(this)">TerjeDrink6Energy</span></td><td>Подбодриться, когда спать негде</td></tr>
+  </table>
+  <p style="margin-top:10px"><b>Для дальних рейдов</b> добавьте: зивирол (драка с зомби неизбежна), инъектор нейрокс (шлем может не спасти от контузии), антихиминъектор (газы), рабивакс или ваксикам заранее, АFAK вместо IFAK.</p>
+</div>
+
+<div class="card" id="faq">
+  <h2>❓ Частые вопросы</h2>
+  <q>Я простыл. Что делать?</q>
+  <p style="font-size:14px">Если лёгкая стадия — тёплое место и сон. Серьезнее — антибиотик того же уровня, что болезнь, или выше. Возможно, понадобится несколько доз. Следите за кашлем: если опустилось в лёгкие, без сильных антибиотиков пойдёте в пневмонию.</p>
+  <q>Зомби ударил меня, и я почувствовал себя плохо — это вирус?</q>
+  <p style="font-size:14px">Возможно. Вирус передаётся в ближнем бою, шанс выше при ранах. Инкубационный период долгий (больше часа реального времени) — у вас есть время найти Зивирол. С маской и бронёй шанс заражения ниже.</p>
+  <q>Что значит «передозировка»?</q>
+  <p style="font-size:14px">Если глотать слишком много лекарств, персонаж получает передозировку: сначала тошнота и галлюцинации, затем потеря сознания, затем критическая угроза жизни. Лечение — вода (WaterBottle). Считайте дозы и не сыпьте всё в рот сразу.</p>
+  <q>Как вводить ампулу?</q>
+  <p style="font-size:14px">Ампулу в один палец не вставишь: нужен шприц. После каждого укола шприц загрязняется — продезинфицируйте спиртом или прокипятите в кастрюле с водой на огне. Инъектор проще: применил и выбросил.</p>
+  <q>Где взять лекарства?</q>
+  <p style="font-size:14px">Лутается в медицинских учреждениях (больницы, госпитали) и у медиков-зомби. Ищите в ящиках и полках больниц; в военных объектах — IFAK/AFAK и инъекторы.</p>
+  <q>Психика упала до нуля, персонаж ведёт себя странно</q>
+  <p style="font-size:14px">Немедленно выходите из стресса (пси-зоны, зомби) и вводите антидепрессанты. На крайней стадии персонаж может погибнуть от собственных рук.</p>
+</div>
+
+<div class="card" id="ref">
+  <h2>📋 Справочник препаратов</h2>
+  <div class="row">
+    <div style="flex:1"><label>Поиск по названию или класснейму</label><input id="refSearch" placeholder="нурофен, зивирол, TerjeAmpoule..."></div>
+    <div><label>Форма</label><select id="refForm"><option value="">Все формы</option><option value="Таблетки">Таблетки</option><option value="Ампула">Ампулы</option><option value="Инъектор">Инъекторы</option><option value="Мазь">Мази</option><option value="Набор">Наборы</option><option value="Вакцина">Вакцины</option><option value="Бутылка">Бутылки</option><option value="Дезинфекция">Дезинфекция</option></select></div>
+  </div>
+  <div class="hint">Клик по класснейму копирует его в буфер обмена.</div>
+  <table id="refTable"></table>
+</div>
+
+<div class="card">
+  <h2>💡 Памятка для новичка СтанZ</h2>
+  <ul>
+    <li>Первая стадия любой болезни лечится легко. Ждать — значит лечить тяжёлую стадию и тратить сильные препараты.</li>
+    <li>Дезинфекция перед любой процедурой. Это самая дешёвая страховка от сепсиса.</li>
+    <li>Вакцина до заражения, а не после. Ставьте перед рейдами в опасные места.</li>
+    <li>Сон — ресурс. Планируйте ночёвки, иначе к вечеру вы уставший, уязвимый и видите то, чего нет.</li>
+    <li>Зивирол — вещь первой необходимости. Один укус в ближнем бою — и вы уже гонитесь за противоядием.</li>
+  </ul>
+</div>
+
+</div>
+
+<footer>
+  🏥 Вики для игроков сервера СтанZ · по материалам официальной вики TerjeMedicine<br>
+  Автор: <b>pit0797</b> · При поддержке сервера <b>СтанZ ★</b>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+function toast(t){const el=$("toast");el.textContent=t;el.style.opacity=1;clearTimeout(el._t);el._t=setTimeout(()=>el.style.opacity=0,1800);}
+function copyCn(el){const t=el.textContent;navigator.clipboard&&navigator.clipboard.writeText(t);toast("Скопировано: "+t);}
+
+// ---------- справочник ----------
+const REF=[
+ {n:"Ваксикам (вакцина)",c:"TerjeAmpouleVaxicam",f:"Вакцина",lvl:"—",d:"4 часа",ov:"0.8",why:"Иммунитет к простуде/гриппу"},
+ {n:"Зеривакс (вакцина)",c:"TerjeAmpouleZerivax",f:"Вакцина",lvl:"—",d:"2 часа",ov:"1.5",why:"Иммунитет к зомби-вирусу"},
+ {n:"Рабивакс (вакцина)",c:"TerjeAmpouleRabivax",f:"Вакцина",lvl:"—",d:"4 часа",ov:"1.3",why:"Иммунитет к бешенству"},
+ {n:"Алкогольная настойка",c:"DisinfectantAlcohol",f:"Дезинфекция",lvl:"—",d:"—",ov:"—",why:"Руки, инструменты, шприцы"},
+ {n:"Дезинфицирующий спрей",c:"DisinfectantSpray",f:"Дезинфекция",lvl:"—",d:"—",ov:"—",why:"Дезинфекция в поле"},
+ {n:"Капсикам (мазь)",c:"TerjeSalveCapsicum",f:"Мазь",lvl:"—",d:"300 с",ov:"—",why:"Заживление гематом"},
+ {n:"Випросал (мазь)",c:"TerjeSalveViprosal",f:"Мазь",lvl:"—",d:"400 с",ov:"—",why:"Заживление гематом"},
+ {n:"Финалгон (мазь)",c:"TerjeSalveFinalgon",f:"Мазь",lvl:"—",d:"600 с",ov:"—",why:"Сильнейшая мазь от гематом"},
+ {n:"Викасол",c:"TerjePillsVikasol",f:"Таблетки",lvl:"1",d:"300 с",ov:"0.15",why:"Свёртываемость крови"},
+ {n:"Эритромикселин",c:"TerjeInjectorErytromixelin",f:"Инъектор",lvl:"3",d:"300 с",ov:"0.32",why:"Восстановление крови"},
+ {n:"Амибактам",c:"TerjePillsAmibaktam",f:"Таблетки",lvl:"1",d:"60 с",ov:"0.05",why:"Простуда 1 ст."},
+ {n:"Тетрациклин",c:"TetracyclineAntibiotics",f:"Таблетки",lvl:"1",d:"300 с",ov:"0.45",why:"Простуда 1 ст."},
+ {n:"Парацетамол",c:"TerjePillsParacetamol",f:"Таблетки",lvl:"1",d:"200 с",ov:"0.45",why:"Простуда, жар"},
+ {n:"Ибупрофен",c:"TerjePillsIbuprofen",f:"Таблетки",lvl:"2",d:"300 с",ov:"0.35",why:"Простуда 2 ст."},
+ {n:"Нурофен",c:"TerjePillsNurofen",f:"Таблетки",lvl:"2",d:"300 с",ov:"0.52",why:"Простуда 2 ст."},
+ {n:"Амоксиклав",c:"TerjePillsAmoxiclav",f:"Таблетки",lvl:"2",d:"1200 с",ov:"0.75",why:"Простуда 2 ст."},
+ {n:"Пиперациллин",c:"TerjePillsPiperacylin",f:"Таблетки",lvl:"2",d:"1100 с",ov:"0.45",why:"Простуда 2 ст."},
+ {n:"Кетарол",c:"TerjeAmpouleKetarol",f:"Ампула",lvl:"2",d:"1200 с",ov:"0.5",why:"Простуда 2 ст."},
+ {n:"Амоксиван",c:"TerjeAmpouleAmoxivan",f:"Ампула",lvl:"2",d:"900 с",ov:"0.3",why:"Простуда 2 ст."},
+ {n:"Топоизомераза",c:"TerjeInjectorTopoizomeraza",f:"Инъектор",lvl:"3",d:"900 с",ov:"0.65",why:"Простуда 3 ст., сепсис"},
+ {n:"Имипенем",c:"TerjeAmpouleImipenem",f:"Ампула",lvl:"3",d:"900 с",ov:"0.7",why:"Простуда 3 ст., сепсис"},
+ {n:"Флемоклав",c:"TerjeAmpouleFlemoclav",f:"Ампула",lvl:"3",d:"1200 с",ov:"0.8",why:"Простуда 3 ст., сепсис"},
+ {n:"Амоксиклав (инъектор)",c:"TerjeInjectorAmoxiclav",f:"Инъектор",lvl:"3",d:"1800 с",ov:"0.6",why:"Простуда 3 ст., сепсис"},
+ {n:"Уголь активированный",c:"CharcoalTablets",f:"Таблетки",lvl:"1",d:"300 с",ov:"0.01",why:"Пищевое отравление"},
+ {n:"Полисорб",c:"TerjePillsPolisorb",f:"Таблетки",lvl:"1",d:"300 с",ov:"0.05",why:"Пищевое отравление"},
+ {n:"Фталазол",c:"TerjePillsFtalazol",f:"Таблетки",lvl:"1",d:"1200 с",ov:"0.25",why:"Пищевое отравление"},
+ {n:"Месалазин",c:"TerjePillsMesalazin",f:"Таблетки",lvl:"2",d:"600 с",ov:"0.35",why:"Пищевое отравление 2 ст."},
+ {n:"Хелатные таблетки",c:"ChelatingTablets",f:"Таблетки",lvl:"2",d:"600 с",ov:"0.6",why:"Пищевое отравление 2 ст."},
+ {n:"Метоклопрамид",c:"TerjeAmpouleMetoclopramid",f:"Ампула",lvl:"2",d:"1200 с",ov:"0.4",why:"Пищевое отравление 2 ст."},
+ {n:"Хептрал",c:"TerjeAmpouleHeptral",f:"Ампула",lvl:"3",d:"600 с",ov:"0.6",why:"Пищевое отравление 3 ст."},
+ {n:"Стомапроксидал",c:"TerjeInjectorStomaproxidal",f:"Инъектор",lvl:"3",d:"900 с",ov:"0.68",why:"Пищевое отравление 3 ст."},
+ {n:"Ромбиопентал",c:"TerjePillsRombiopental",f:"Таблетки",lvl:"1",d:"30 с",ov:"0.15",why:"Химическое отравление 1 ст."},
+ {n:"Неироцетал",c:"TerjeAmpouleNeirocetal",f:"Ампула",lvl:"2",d:"500 с",ov:"1.25",why:"Химическое отравление 2 ст."},
+ {n:"АнтиХимИнъектор",c:"AntiChemInjector",f:"Инъектор",lvl:"3",d:"180 с",ov:"1.1",why:"Химическое отравление 3 ст."},
+ {n:"Зивирол",c:"TerjeAmpouleZivirol",f:"Ампула",lvl:"—",d:"1000 с",ov:"2.35",why:"Противоядие от зомби-вируса"},
+ {n:"Зивирол",c:"TerjeInjectorZivirol",f:"Инъектор",lvl:"—",d:"1200 с",ov:"2.5",why:"Противоядие от зомби-вируса"},
+ {n:"Ноопепт",c:"TerjePillsNoopept",f:"Таблетки",lvl:"—",d:"380 с",ov:"0.35",why:"Контузия"},
+ {n:"Нейрокс",c:"TerjeAmpouleNeirox",f:"Ампула",lvl:"—",d:"600 с",ov:"0.6",why:"Контузия"},
+ {n:"Нейрокс",c:"TerjeInjectorNeirox",f:"Инъектор",lvl:"—",d:"500 с",ov:"0.3",why:"Контузия"},
+ {n:"Пропитал",c:"TerjeInjectorPropital",f:"Инъектор",lvl:"2",d:"180 с",ov:"0.75",why:"Боль"},
+ {n:"Морфин",c:"Morphine",f:"Инъектор",lvl:"3",d:"300 с",ov:"0.75",why:"Сильная боль"},
+ {n:"Промидол",c:"TerjeInjectorPromidol",f:"Инъектор",lvl:"3",d:"600 с",ov:"0.45",why:"Сильная боль"},
+ {n:"Адепресс",c:"TerjePillsAdepress",f:"Таблетки",lvl:"1",d:"150 с",ov:"0.2",why:"Психика"},
+ {n:"Агтеминол",c:"TerjePillsAgteminol",f:"Таблетки",lvl:"1",d:"120 с",ov:"0.2",why:"Психика"},
+ {n:"Венлафаксин",c:"TerjePillsVenlafaxine",f:"Таблетки",lvl:"1",d:"250 с",ov:"0.3",why:"Психика"},
+ {n:"Астапароксетин",c:"TerjeAmpouleActaparoxetine",f:"Ампула",lvl:"2",d:"400 с",ov:"0.4",why:"Психика 2 ст."},
+ {n:"Метралиндол",c:"TerjeAmpouleMetralindole",f:"Ампула",lvl:"2",d:"300 с",ov:"0.1",why:"Психика 2 ст."},
+ {n:"Амитриптилайн",c:"TerjeAmpouleAmitriptyline",f:"Ампула",lvl:"3",d:"600 с",ov:"0.4",why:"Психика 3 ст."},
+ {n:"Амфиталицин",c:"TerjeInjectorAmfitalicyne",f:"Инъектор",lvl:"3",d:"520 с",ov:"0.6",why:"Психика 3 ст."},
+ {n:"Энергетик 6Energy",c:"TerjeDrink6Energy",f:"Бутылка",lvl:"—",d:"—",ov:"0.0",why:"Сон: восстановление 8"},
+ {n:"IFAK",c:"TerjeFirstAidKitIndividual_Black",f:"Набор",lvl:"—",d:"—",ov:"—",why:"Универсальный набор (10 использований)"},
+ {n:"AFAK",c:"TerjeFirstAidKitAdvance_Black",f:"Набор",lvl:"—",d:"—",ov:"—",why:"Универсальный набор (20 использований)"},
+ {n:"Полевой набор",c:"TerjeSurgicalKit",f:"Набор",lvl:"—",d:"—",ov:"—",why:"Хирургия (5 использований)"},
+ {n:"Чаша с инструментами",c:"TerjeSurgicalTool_Ceramic",f:"Набор",lvl:"—",d:"—",ov:"—",why:"Хирургия (1 использование)"},
+];
+function tag(f){const cls={"Таблетки":"tTab","Ампула":"tAmp","Инъектор":"tInj","Набор":"tKit","Вакцина":"tVac","Бутылка":"tTab","Мазь":"tAmp","Дезинфекция":"tDis"}[f]||"tTab";return `<span class="tag ${cls}">${f}</span>`;}
+function renderRef(){
+  const q=($("refSearch").value||"").toLowerCase(), fm=$("refForm").value;
+  const rows=REF.filter(r=>(!q||r.n.toLowerCase().includes(q)||r.c.toLowerCase().includes(q)||r.why.toLowerCase().includes(q))&&(!fm||r.f===fm));
+  $("refTable").innerHTML="<tr><th>Препарат</th><th>Форма</th><th>Ур.</th><th>Действие</th><th>Передоз.</th><th>Зачем</th><th>Предмет (клик — копировать)</th></tr>"+
+    rows.map(r=>`<tr><td>${r.n}</td><td>${tag(r.f)}</td><td>${r.lvl}</td><td>${r.d}</td><td>${r.ov}</td><td>${r.why}</td><td><span class="cn" onclick="copyCn(this)">${r.c}</span></td></tr>`).join("")||
+    "<tr><td colspan=7>Ничего не найдено</td></tr>";
+}
+$("refSearch").oninput=renderRef;$("refForm").onchange=renderRef;renderRef();
+
+// ---------- «что со мной?» ----------
+const SYMPTOMS=[
+ ["Кашель","cold"],["Насморк","cold"],["Озноб","cold"],["Слабость","cold"],["Тошнота","food"],["Рвота","food"],["Болит живот","food"],
+ ["Кашель усилился","chem"],["Дыхание как из хим. зоны","chem"],["Головная боль","conc"],["Головокружение","conc"],["Зрение мутное","conc"],["Шатает при ходьбе","conc"],
+ ["Рана не заживает","sepsis"],["Гной в ране","sepsis"],["Температура растёт","rabies"],["Мокну рвотой, не могу есть","rabies"],["Очень высокая температура","rabies"],
+ ["Боли в теле","pain"],["Меня укусил зомби","zvirus"],["Не помню, когда спал","sleep"],["Паника","psy"],["Галлюцинации","psy"],["Слышу голоса","psy"],["Мутные видения","od"]
+];
+$("symptoms").innerHTML=SYMPTOMS.map((s,i)=>`<label class="chk"><input type="checkbox" class="sym" value="${s[1]}"> ${s[0]}</label>`).join("");
+const DIAG={
+ zvirus:{t:"🧟 Зомби-вирус",cls:"danger",txt:"Возможно заражение зомби-вирусом. У вас больше часа реального времени до стремительного ухудшения — используйте это время: найдите и введите <b>Зивирол</b> (TerjeAmpouleZivirol / TerjeInjectorZivirol). В будущем: маска + броня, вакцина Зеривакс."},
+ rabies:{t:"🐺 Бешенство",cls:"danger",txt:"Симптомы похожи на бешенство (обычно от укуса волка). Без лечения — смертельный исход. Ищите сильное лечение и вакцину Рабивакс на будущее."},
+ sepsis:{t:"🩹 Сепсис",cls:"danger",txt:"Похоже на заражение крови из незалеченной раны. Нужны антибиотики 3 уровня: Флемоклав, Имипенем, Амоксиклав-инъектор или Топоизомераза. Рану обработайте дезинфектором."},
+ cold:{t:"🤧 Простуда",cls:"warn",txt:"Похоже на простуду/грипп. Лёгкую стадию можно переспать в тепле. Если сильнее — антибиотик соответствующего уровня (см. таблицу выше). Не тяните: следующая стадия — пневмония."},
+ food:{t:"🥩 Пищевое отравление",cls:"warn",txt:"Похоже на отравление едой или водой. Пейте много воды и принимайте препараты: уголь, Полисорб и далее по стадии."},
+ chem:{t:"☠️ Химическое отравление",cls:"warn",txt:"Похоже на отравление токсичными газами. Ромбиопентал / Неироцетал / АнтиХимИнъектор по стадии. Уходите из зоны заражения."},
+ conc:{t:"🩹 Контузия",cls:"ok",txt:"Похоже на сотрясение (удар по голове, взрыв, пуля в шлем). Пройдёт со временем; Ноопепт, Нейрокс снимут симптомы."},
+ pain:{t:"💊 Боль",cls:"ok",txt:"Пропитал, Морфин или Промидол снимут боль и вернут боеспособность."},
+ sleep:{t:"😴 Недосып",cls:"ok",txt:"Персонажу нужен сон. Найдите безопасное место и поспите, либо поддержитесь энергетиком."},
+ psy:{t:"😰 Психика",cls:"warn",txt:"Похоже на психический срыв: стресс, зомби, пси-зоны. Антидепрессанты по стадии (см. раздел «Сон и психика»). На крайней стадии возможны непоправимые действия — действуйте сейчас."},
+ od:{t:"💊 Передозировка",cls:"warn",txt:"Похоже на передозировку лекарств. Тошнота и галлюцинации — первая стадия, дальше хуже. Пейте воду (WaterBottle) и не принимайте новые дозы препаратов."}
+};
+$("checkBtn").onclick=()=>{
+  const vals=[...document.querySelectorAll(".sym:checked")].map(c=>c.value);
+  if(!vals.length){$("checkRes").innerHTML=`<div class="warn">Отметьте хотя бы один симптом 🙂</div>`;return;}
+  const cnt={};vals.forEach(v=>cnt[v]=(cnt[v]||0)+1);
+  const order=["zvirus","rabies","sepsis","cold","food","chem","od","psy","conc","pain","sleep"];
+  const top=order.filter(k=>cnt[k]).sort((a,b)=>cnt[b]-cnt[a]);
+  $("checkRes").innerHTML=top.map(k=>{const d=DIAG[k];return `<div class="${d.cls}"><b>${d.t}</b><br>${d.txt}</div>`;}).join("")+
+    `<div class="hint">Определение по симптомам — приблизительное. Откройте соответствующий раздел выше и сверьтесь с таблицей препаратов.</div>`;
+};
+</script>
+</body>
+</html>
